@@ -17,7 +17,10 @@
           <span>
             <label>
               done?
-              <input type="checkbox" :value="data[0].completed ? 'checked' : ''" />
+              <input
+                type="checkbox"
+                :value="data[0].completed ? 'checked' : ''"
+              />
             </label>
           </span>
         </p>
@@ -27,34 +30,33 @@
 </template>
 
 <style scoped>
-  button {
-    background-color: fuchsia;
-  }
+button {
+  background-color: fuchsia;
+}
 
-  input {
-    border: 2px dotted green;
-  }
-
+input {
+  border: 2px dotted green;
+}
 </style>
 
 <script lang="ts">
-  import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
-  @Component({
-    name: 'home-view'
-  })
-  export default class HomeView extends Vue {
-    private data: any = [{id: -1, title: 'none', completed: false }]; // gives error when array empty
+@Component({
+  name: "home-view",
+})
+export default class HomeView extends Vue {
+  private data: any = [{ id: -1, title: "none", completed: false }]; // gives error when array empty
 
-    private mounted() {
-      fetch('https://jsonplaceholder.typicode.com/todos')
-        .then(response => response.json())
-        .then(response => response.splice(0, 50)) // just limiting it to 50
-        .then(json => console.log(json))
-    }
-
-    private onButtonClicked() {
-      alert('MethodNotImplementedException');
-    }
+  private mounted() {
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then((response) => response.json())
+      .then((response) => response.splice(0, 50)) // just limiting it to 50
+      .then((json) => console.log(json));
   }
+
+  private onButtonClicked() {
+    alert("MethodNotImplementedException");
+  }
+}
 </script>
