@@ -9,18 +9,16 @@
     </p>
     <ul>
       <li>
-        <p>
-          <span>{{ data[0].id }}</span>
+        <p v-for="item in data" :key="item.id">
+          <span>{{ item.id }}</span>
           <span>
-            <s>{{ data[0].title }}</s>
+            <s v-if="item.completed">{{ item.title }}</s>
+            <span v-else>{{ item.title }}</span>
           </span>
           <span>
             <label>
               done?
-              <input
-                type="checkbox"
-                :value="data[0].completed ? 'checked' : ''"
-              />
+              <input type="checkbox" v-model="item.completed" />
             </label>
           </span>
         </p>
@@ -39,24 +37,27 @@ input {
 }
 </style>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-
-@Component({
+<script>
+export default {
   name: "home-view",
-})
-export default class HomeView extends Vue {
-  private data: any = [{ id: -1, title: "none", completed: false }]; // gives error when array empty
 
-  private mounted() {
+  data() {
+    return {
+      data: [{ id: -1, title: "none", completed: false }], // same default
+    };
+  },
+
+  mounted() {
     fetch("https://jsonplaceholder.typicode.com/todos")
       .then((response) => response.json())
-      .then((response) => response.splice(0, 50)) // just limiting it to 50
+      .then((response) => response.splice(0, 50)) // just limiting to 50
       .then((json) => console.log(json));
-  }
+  },
 
-  private onButtonClicked() {
-    alert("MethodNotImplementedException");
-  }
-}
+  methods: {
+    onButtonClicked() {
+      alert("MethodNotImplementedException");
+    },
+  },
+};
 </script>
