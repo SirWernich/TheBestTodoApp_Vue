@@ -17,6 +17,11 @@
   color: #2c3e50;
 }
 
+body {
+  background: lightgrey;
+  padding: 30px;
+}
+
 nav {
   padding: 30px;
 
