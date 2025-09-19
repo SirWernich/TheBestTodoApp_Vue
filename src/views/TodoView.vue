@@ -1,14 +1,16 @@
 <template>
-  <div class="home">
+  <div class="todo-view">
     <h1>The Best Todo App</h1>
-    <button @click="onButtonClicked">Load todos</button>
+    <button @click="onButtonClicked" class="load-button">Load todos</button>
     <p>
       <label for="new-todo">Add new todo:</label>
       <input type="text" id="new-todo" />
-      <button @clicked="onButtonClicked">Add</button>
     </p>
-    <ul>
-      <li>
+    <p>
+      <button @clicked="onButtonClicked" class="add-button">Add</button>
+    </p>
+    <ul class="item-list">
+      <li class="item-card">
         <p>
           <span>{{ data[0].id }}</span>
           <span>
@@ -29,24 +31,16 @@
   </div>
 </template>
 
-<style scoped>
-button {
-  background-color: fuchsia;
-}
-
-input {
-  border: 2px dotted green;
-}
-</style>
-
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
+type TodoItem = any;
+
 @Component({
-  name: "home-view",
+  name: "todo-view",
 })
-export default class HomeView extends Vue {
-  private data: any = [{ id: -1, title: "none", completed: false }]; // gives error when array empty
+export default class TodoView extends Vue {
+  private data: TodoItem[] = [{ id: -1, title: "none", completed: false }]; // gives error when array empty
 
   private mounted() {
     fetch("https://jsonplaceholder.typicode.com/todos")
@@ -60,3 +54,36 @@ export default class HomeView extends Vue {
   }
 }
 </script>
+
+<style scoped>
+button {
+  background-color: rgb(170, 218, 170);
+  /* padding: 10px; */
+  border-radius: 5px;
+}
+
+.load-button {
+  height: 40px;
+  width: 100px;
+}
+
+.add-button {
+  height: 25px;
+  width: 80px;
+}
+
+input:focus {
+  background: lightblue;
+}
+
+input[type="text"] {
+  border-radius: 5px;
+  margin-left: 20px;
+  padding: 3px;
+}
+
+.item-list {
+  list-style: none;
+  padding: none;
+}
+</style>
